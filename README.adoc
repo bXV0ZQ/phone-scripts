@@ -1,0 +1,32 @@
+= My phone scripts
+:toc: preamble
+:toclevels: 1
+:toc-title: Scripts:
+
+This repository regroups usefull scripts I developed in order to manage my phone.
+
+== push_system_apps.sh
+
+This script is used to push system apps to the mobile phone.
+
+Every time an OTA update is applied, system apps are usually wiped and need to be pushed again.
+
+=== F-Droid Privileged Extension
+
+[cols="2,8"]
+|===
+^.^s| APK Source
+| https://f-droid.org/repo/org.fdroid.fdroid.privileged_2110.apk
+
+^.^s| APK Destination
+| /system/priv-app/F-DroidPrivilegedExtension/org.fdroid.fdroid.privileged.apk
+
+.2+^.^s| Permissions
+
+| android.permission.DELETE_PACKAGES
+| android.permission.INSTALL_PACKAGES
+
+^.^s| Permissions Destination
+| /system/etc/permissions/privapp-permissions-org.fdroid.fdroid.privileged.xml
+
+|===
