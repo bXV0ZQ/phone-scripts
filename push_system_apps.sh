@@ -44,7 +44,7 @@ usage () {
 
 # \n is required to preserve whitespaces for the first line (and adding a new line before printing the usage message is a good deal)
     read -r -d '' USAGE << EOM
-\n    Usage: ${SCRIPT_NAME}
+\n    Usage: ${SCRIPT_NAME} [-s <source>]
     
     Push ${YELLOW}system apps${END} to the mobile through ADB.
     These apps are usually wiped when applying an OTA update so they need to be reinstalled regularly.
