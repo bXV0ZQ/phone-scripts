@@ -122,7 +122,10 @@ install_system_app () {
     local dst_apk_file="${dst_apk_folder}/${apk_file_name}"
     local dst_perm_file="${PERMISSIONS_FOLDER}/${perm_file_name}"
 
-    # Add controls or it may soft brick the phone...
+    # Add controls as applying chmod to bad files/folders may soft brick the phone...
+    [[ -z "${dst_apk_folder}" ]] && return 40
+    [[ -z "${dst_apk_file}" ]] && return 41
+    [[ -z "${dst_perm_file}" ]] && return 51
 
     adb shell 'mkdir "${dst_apk_folder}"'
     adb push "${src_apk_file}" "${dst_apk_file}"
@@ -130,6 +133,8 @@ install_system_app () {
     adb shell 'chmod 644 "${dst_apk_file}"'
     adb push "${src_perm_file}" "${dst_perm_file}"
     adb shell 'chmod 644 "${dst_perm_file}"'
+
+    return 0
 }
 
 #
@@ -164,6 +169,9 @@ for i in ${!app_names[@]}; do
         21) print_warn ">>>>>> F-Droid Privileged Extension installation cancelled (source apk file not found)";;
         30) print_warn ">>>>>> F-Droid Privileged Extension installation cancelled (invalid permissions file name)";;
         31) print_warn ">>>>>> F-Droid Privileged Extension installation cancelled (source permissions file not found)";;
+        40) print_warn ">>>>>> F-Droid Privileged Extension installation cancelled (destination folder empty)";;
+        41) print_warn ">>>>>> F-Droid Privileged Extension installation cancelled (destination apk file empty)";;
+        51) print_warn ">>>>>> F-Droid Privileged Extension installation cancelled (destination permissions file empty)";;
         *) print_warn ">>>>>> F-Droid Privileged Extension installation cancelled";;
     esac
 done
